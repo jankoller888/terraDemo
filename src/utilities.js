@@ -1,0 +1,67 @@
+var customSort= function(e1,e2){
+	return new Date(e1.recordDate).getTime() - new Date(e2.recordDate).getTime()
+}
+
+var OriginalSchedule=[{'startT':1476418012000, 'endT':1476418412000}, {'startT':1476418512000, 'endT':1476411012000}];
+
+var data =[{'Tstart':1476418012000, 'Tend':1476418412000}, {'Tstart':1476418512000, 'Tend':1476411012000}]
+
+function findMatchEvent(timeTuple,schedule){
+	// expect timeTUple is object with ({{'Tstart':1476418012000, 'Tend':1476418412000}})
+	// event which have closest distance to the stop and start pari in timeTuple
+	var minInd=0;
+
+	var minDist = Math.abs(timeTuple.Tstart- schedule[0].startT)/1000 + Math.abs(timeTuple.Tend- schedule[0].endT)/1000;
+	var temp =0;
+	for (var i = 1; i < OriginalSchedule.length; i++) {
+		 temp=Math.abs(timeTuple.Tstart- schedule[i].startT)/1000 + Math.abs(timeTuple.Tend- schedule[i].endT)/1000;
+		 if (temp < minDist){
+		 	minDist = temp;
+		 	minInd = i;
+		 }
+	};
+
+	return minInd;
+}
+
+function updateStartStopTime(session,timeTuple){
+	
+	if (session.hasOwnProperty('realStart')){
+		session.realStart=Math.min(timeTuple.Tstart,session.realStart);
+	}
+	else{
+		session.realStart=timeTuple.Tstart;
+	}
+	
+	if (session.hasOwnProperty('realEnd')){
+		session.realEnd=Math.max(timeTuple.Tend,session.realEnd);
+	}
+	else{
+		session.realEnd=timeTuple.Tend;
+	}
+
+}
+
+function convertToTimeTuple(eventList){
+	// expect is array of of events with isStart
+	// assume first element is all isStart after sorting 
+	eventList.sort(customSort);
+	var dataArr =[];
+	for (var i = 0; i < eventList.length/2; i++) {
+		dataArr.push({'Tstart':new Date(eventList[i*2].recordDate).getTime(),'Tend': new Date(eventList[i*2+1].recordDate).getTime()}) ;  
+		
+	};
+
+	return dataArr;
+
+}
+
+function getScheduleformat(scheduleEvents){
+	var dataArr=[]
+
+	for (var i = 0; i < scheduleEvents.length; i++) {
+		dataArr.push({'startT': scheduleEvents[i].startTime, 'endT': scheduleEvents[i].endTime});
+	};
+
+	return dataArr;
+}

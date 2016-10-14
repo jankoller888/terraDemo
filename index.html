@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app='RoutingApp'>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>TerraSwarm 2016</title>
+  </head>
+  <body>
+    <h1>Welcome to TerraSwarm 2016 Annual Review</h1>
+
+    <div class="tabs">
+      <a ui-sref="event" ui-sref-active="activeTab">Event</a>
+      <a ui-sref="schedule" ui-sref-active="activeTab">Schedule</a>
+      <!-- <button ui-sref="tab2">Tab 2</button> -->
+    </div>
+
+    <ui-view></ui-view>
+
+    <!-- Libraries -->
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-ui-router.min.js"></script>
+
+    <!-- Modules -->
+    <script src="src/app.js"></script>
+    <script src="src/utilities.js"></script>
+
+  </body>
+</html>

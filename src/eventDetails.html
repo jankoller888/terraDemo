@@ -1,0 +1,8 @@
+<div>This is eventDetails content</div>
+<div id="eventDetail" ng-controller='EventDetailController as ctrl'>
+	<div>Event Started at {{ctrl.activeEvent.startTime | date:'HH:mm':'GMT-7'}}</div>
+	<div ng-repeat="q in ctrl.questions">
+		<div> +{{q.tick}}: Question: {{q.tag}}</div>
+	</div>
+	<div>Event ended at {{ctrl.activeEvent.endTime| date:'HH:mm':'GMT-7'}}</div>
+</div>
