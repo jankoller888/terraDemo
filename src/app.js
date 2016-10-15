@@ -106,6 +106,7 @@ function EventListService($http,ApiBasePath,servAddr){
 
   // add log start log stop for an event when capture form database
   var baseTime = 1476464405000+20*60*1000;  // time of recent recording for poster purpose //new Date().getTime();    //1477409400000; //8:30 on Oct 25th 2016
+  var baseTime2= baseTime +4*60*60*1000; // 13:00 start afternoon section
   //add duration interval
   events=[{
     name:'Welcome',
@@ -157,6 +158,42 @@ function EventListService($http,ApiBasePath,servAddr){
     speaker:'Students',
     startTime:baseTime+165*60*1000,//'8:45',
     endTime:baseTime+195*60*1000,
+    status:"Upcomming",
+    isdone:false,
+    isactive:false
+  },
+  {
+    name: 'Theme 2/ Methodologies, Models and Tools',
+    speaker:'Alberto Sangiovanni-Vincentelli (Berkeley) and Sanjit Seshia (Berkeley)',
+    startTime:baseTime2,//'8:45',
+    endTime:baseTime2+45*60*1000,
+    status:"Upcomming",
+    isdone:false,
+    isactive:false
+  },
+  {
+    name: 'Theme 2 Tweets',
+    speaker:'Students',
+    startTime:baseTime2+45*60*1000,//'8:45',
+    endTime:baseTime2+75*60*1000,
+    status:"Upcomming",
+    isdone:false,
+    isactive:false
+  },
+  {
+    name: ' Theme 3/ Services and Cloud Interactions',
+    speaker:'Jeff Bilmes (Washington) and Anthony Rowe (CMU)',
+    startTime:baseTime2+75*60*1000,//'8:45',
+    endTime:baseTime2+120*60*1000,
+    status:"Upcomming",
+    isdone:false,
+    isactive:false
+  },
+  {
+    name: 'Theme 3 Tweets',
+    speaker:'Students',
+    startTime:baseTime2+120*60*1000,//'8:45',
+    endTime:baseTime2+150*60*1000,
     status:"Upcomming",
     isdone:false,
     isactive:false
