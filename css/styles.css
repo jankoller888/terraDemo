@@ -1,22 +1,42 @@
+h1{
+	color:#337ab7;
+}
 body {
   font-size: 1.2em;
 }
 
 div.tabs > a, div.tabs > button {
   margin-right: 10px;
-  font-size: 1.2em;
+  font-size: 2em;
 }
 
 div.tabs {
-  margin-bottom: 10px;
+  margin: 10px;
 }
 
 .activeTab {
   font-weight: bold;
+  margin: 10px;
 }
-#container{
-	border-style: solid;
-    border-width: 5px;
-    width: 500px;
-    
+.container{
+	border:solid;
+	width: 94%;
+    border-color: #337ab7;
+    border-width: 2px;
+    margin: 0 auto;
+
+}
+
+div.introText{
+	font-size: 2em;
+	margin: 10px ;
+	color:#337ab7;
+}
+table{
+	float: auto;
+	font-size: 1.5em;
+}
+#realTime{
+	color: red;
+	text-align: center;
 }

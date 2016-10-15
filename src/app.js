@@ -19,7 +19,7 @@ EventDetailController.$inject=['EventListService', 'UtilitiesService'];
 function EventDetailController(EventListService, UtilitiesService){
   var ctrl=this;
   ctrl.activeEvent = EventListService.getActiveEvent(); //$state.params.activeEvent;
-  ctrl.questions =[{tick:'8:40',tag:'how are you?'}];
+  ctrl.tags =[{recordDate:'2016-10-14T17:00:05.000Z',tag:'how are you?'}];
   console.log(ctrl);
   var t1=  new Date('Fri Oct 14 2016 12:00:05 GMT-0500').toISOString();  //new Date(ctrl.activeEvent.startTime).toISOString();
   var t2 =  new Date('Fri Oct 14 2016 13:00:05 GMT-0500').toISOString();  //new Date(ctrl.activeEvent.endTime).toISOString();
@@ -28,6 +28,11 @@ function EventDetailController(EventListService, UtilitiesService){
 
   promise.then(function (response) {
     console.log('promise done');
+    var temp=response.data;
+    temp.sort(function(e1,e2){ // make sure every event is short by time 
+      return new Date(e1.recordDate).getTime() - new Date(e2.recordDate).getTime();
+    });
+    ctrl.tags= temp;
    console.log (response);
   })
   .catch(function (error) {
@@ -59,7 +64,7 @@ function ScheduleController(EventListService,$state,UtilitiesService){
     testdata= response.data; // for test only
     
     testdata= UtilitiesService.convertToTimeTuple(testdata);
-    var matchedInd= null;
+    var matchedInd= -1; // valid index should start at 0, -1 means no valid index found
     //update the timestamp
     if (testdata.length){
       t1 = new Date(testdata[testdata.length-1].Tend+100).toISOString(); //+100 to exculde the last stop event
@@ -68,8 +73,11 @@ function ScheduleController(EventListService,$state,UtilitiesService){
     for (var i = 0; i < testdata.length; i++) {
       matchedInd =UtilitiesService.findMatchEvent(testdata[i],schedule)
       UtilitiesService.updateStartStopTime(ctrl.events[matchedInd],testdata[i]);
-      EventListService.setEventisDone(matchedInd);
+      EventListService.setEventinProgess(matchedInd);
     };
+    if (matchedInd>0){
+       EventListService.setEventinProgess(matchedInd-1);
+    }
    console.log (response);
   })
   .catch(function (error) {
@@ -97,41 +105,75 @@ function EventListService($http,ApiBasePath,servAddr){
   var qStr='dbname=publicDb&colname=event&user=&passwd=publicPwd&classname=none';
 
   // add log start log stop for an event when capture form database
-  var baseTime = new Date().getTime();    //1477409400000; //8:30 on Oct 25th 2016
+  var baseTime = 1476464405000+20*60*1000;  // time of recent recording for poster purpose //new Date().getTime();    //1477409400000; //8:30 on Oct 25th 2016
   //add duration interval
   events=[{
     name:'Welcome',
     speaker:'Edward Lee, Director',
     startTime:baseTime,
     endTime:baseTime+ 2*60*1000,//5*60*1000,
-    status:"not started",
-    isdone: false
+    status:"Done",
+    isdone: true,
+    isactive:false,
+    realStart:baseTime+ 3*60*1000,
+    realEnd:baseTime+ 4*60*1000
   },{
     name:'MARCO Perspective Stakeholder for TerraSwarm Annual Review',
     speaker:'Gil Vandentop (SRC)',
-    startTime:baseTime+2.5*60*1000,//5*60*1000,
-    endTime:baseTime+4*60*1000,//10*60*1000,
-    status:"not started",
-    isdone:false
+    startTime:baseTime+7*60*1000,//5*60*1000,
+    endTime:baseTime+15*60*1000,//10*60*1000,
+    status:"in progess...",
+    isdone:false,
+    isactive:true
   },{
     name: 'TerraSwarm: State of the Center',
     speaker:'Edward Lee, Director',
-    startTime:baseTime+15*60*1000,//'8:45',
-    endTime:baseTime+45*60*1000,
-    status:"done",
-    isdone:true
-  }
+    startTime:baseTime+75*60*1000,//'8:45',
+    endTime:baseTime+105*60*1000,
+    status:"Upcomming",
+    isdone:false,
+    isactive:false
+  },
+  {
+    name: 'Introduction to Demos',
+    speaker:'John Wawrzynek (Berkeley)',
+    startTime:baseTime+75*60*1000,//'8:45',
+    endTime:baseTime+105*60*1000,
+    status:"Upcomming",
+    isdone:false,
+    isactive:false
+  },
+  {
+    name: 'Theme 1/ Proactive Worlds',
+    speaker:'Prabal Dutta (Michigan) and Richard Murray (Caltech)',
+    startTime:baseTime+130*60*1000,//'8:45',
+    endTime:baseTime+165*60*1000,
+    status:"Upcomming",
+    isdone:false,
+    isactive:false
+  },
+  {
+    name: 'Theme 1/ Proactive Worlds Tweets',
+    speaker:'Students',
+    startTime:baseTime+165*60*1000,//'8:45',
+    endTime:baseTime+195*60*1000,
+    status:"Upcomming",
+    isdone:false,
+    isactive:false
+  },
   ];
 // for testing
   testdata2=events;
 //----------------
   service.setEventinProgess= function(ind){
     events[ind].status='in progress ...'
+    events[ind].isactive=true;
   };
 
   service.setEventisDone =function(ind){
     events[ind].isdone=true;
-    events[ind].status='done';
+    events[ind].status='Done';
+    events[ind].isactive='false;'
   };
 
   service.getEventList = function(){

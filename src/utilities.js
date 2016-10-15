@@ -9,7 +9,7 @@
 function UtilitiesService(){
 	var service = this ;
 	var customSort= function(e1,e2){
-		return new Date(e1.recordDate).getTime() - new Date(e2.recordDate).getTime()
+		return new Date(e1.recordDate).getTime() - new Date(e2.recordDate).getTime();
 		}
 
 	var OriginalSchedule=[{'startT':1476418012000, 'endT':1476418412000}, {'startT':1476418512000, 'endT':1476411012000}];
