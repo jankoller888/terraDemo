@@ -5,6 +5,8 @@
 				<div id="eventName">EventName: {{e.name}} </div>
 				<div id="speaker"> Speaker: {{e.speaker}}</div>
 				<div id="timeExpect"> start: {{e.startTime|date:"HH:mm":'GMT-7'}} - end:{{e.endTime | date:"HH:mm":'GMT-7'}}</div>
+				<div id ="realEvent" ng-if="e.hasOwnProperty('realStart')"> Actual Start: {{e.realStart|date:"HH:mm":'GMT-7'}} - Actual End: {{e.realEnd|date:"HH:mm":'GMT-7'}}
+				</div>
 				<div id="status"> Status: {{e.status}}</div>
 				<button ng-if="e.isdone" ng-click="sct.gotoDetail(e)">See event detail </div>
 		</div>
