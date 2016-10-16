@@ -1,10 +1,31 @@
+.logo{
+	positon: relative;
+}
+
+
+
 h1{
 	color:#337ab7;
+	clear:both;
 }
 body {
   font-size: 1.2em;
 }
+/*table config*/
+.table>thead>tr>th{
+	background-color: rgba(19, 7, 243, 0.54);
+}
 
+td{
+background-color: rgba(239, 253, 6, 0.29);
+}
+tr.success>td{
+	background-color: rgba(9, 72, 239, 0.3);
+}
+tr.primary>td{
+	background-color: rgb(7, 132, 239);
+}
+/*-------*/
 div.tabs > a, div.tabs > button {
   margin-right: 10px;
   font-size: 2em;
@@ -19,9 +40,9 @@ div.tabs {
   margin: 10px;
 }
 .container{
-	border:solid;
+	border:none;
 	width: 94%;
-    border-color: #337ab7;
+    border-color: rgba(19, 7, 243, 0.54);/*#337ab7;*/
     border-width: 2px;
     margin: 0 auto;
 
@@ -35,6 +56,10 @@ div.introText{
 table{
 	float: auto;
 	font-size: 1.5em;
+}
+.table-bordered>tbody>tr>td, .table-bordered>thead>tr>th{
+	border:solid 1px;
+	border-color: rgba(19, 7, 243, 0.54);
 }
 #realTime{
 	color: red;

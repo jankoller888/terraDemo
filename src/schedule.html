@@ -1,7 +1,7 @@
 <div class="introText">This year schedule (@Krutch Theatre):</div>
 <div id="schedule" ng-controller='ScheduleController as sct'>
 	<div class="container">
-		<table class= 'table table-striped'> 
+		<table class= "table table-striped table-bordered"> 
 			<thead>
 				<tr>
 					<th>Scheduled Time</th>
@@ -9,17 +9,17 @@
 					<th>Speaker</th>
 					<th>Status</th>
 					<th>Happening Time</th>
-					<th>Detail<th>
+					<th>Detail</th>
 				</tr>
 			</thead>	
-			<tr ng-repeat="e in sct.events" ng-class="{'bg-primary':e.isactive, 'success':e.isdone}">
-		 
+			<tr ng-repeat="e in sct.events" ng-class="{'bg-primary':e.isactive, 'success':e.isdone}">		 
 				<td id="Time"> {{e.startTime|date:"HH:mm":'GMT-7'}} - {{e.endTime | date:"HH:mm":'GMT-7'}}</td>
 				<td id="eventName">{{e.name}} </td>
 				<td id="speaker"> {{e.speaker}}</td>
 				<td id="status"> {{e.status}}</td>
-				<td id="note"><div id ="realTime"  ng-if="e.hasOwnProperty('realStart')"> {{e.realStart|date:"HH:mm":'GMT-7'}} -  {{e.realEnd|date:"HH:mm":'GMT-7'}}
-				</div></td>
+				<td id="note">
+					<span id ="realTime"  ng-if="e.hasOwnProperty('realStart')"> {{e.realStart|date:"HH:mm":'GMT-7'}} -  {{e.realEnd|date:"HH:mm":'GMT-7'}}</span>
+				</td>
 				<td id="detail" ><button class="btn btn-info" ng-if="e.isdone" ng-click="sct.gotoDetail(e)">details </div></td>
 				
 				
