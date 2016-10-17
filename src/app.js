@@ -21,8 +21,8 @@ function EventDetailController(EventListService, UtilitiesService){
   ctrl.activeEvent = EventListService.getActiveEvent(); //$state.params.activeEvent;
   ctrl.tags =[{recordDate:'2016-10-14T17:00:05.000Z',tag:'how are you?'}];
   console.log(ctrl);
-  var t1=  new Date('Fri Oct 14 2016 12:00:05 GMT-0500').toISOString();  //new Date(ctrl.activeEvent.startTime).toISOString();
-  var t2 =  new Date('Fri Oct 14 2016 13:00:05 GMT-0500').toISOString();  //new Date(ctrl.activeEvent.endTime).toISOString();
+  var t1=  new Date(ctrl.activeEvent.realStart).toISOString(); //new Date('Fri Oct 14 2016 12:00:05 GMT-0500').toISOString();  //new Date(ctrl.activeEvent.startTime).toISOString();
+  var t2 = new Date(ctrl.activeEvent.realEnd).toISOString();//new Date('Fri Oct 14 2016 13:00:05 GMT-0500').toISOString();  //new Date(ctrl.activeEvent.endTime).toISOString();
 
   var promise = EventListService.getQAEvents(t1,t2);
 
@@ -76,13 +76,13 @@ function ScheduleController(EventListService,$state,UtilitiesService){
       EventListService.setEventinProgess(matchedInd);
     };
     if (matchedInd>0){
-       EventListService.setEventinProgess(matchedInd-1);
+       EventListService.setEventisDone(matchedInd-1);
     }
    console.log (response);
   })
   .catch(function (error) {
     console.log("Something went terribly wrong.");
-  });},10*1000);
+  });},15*1000);
   
   //for click event
   ctrl.gotoDetail= function (e){
@@ -105,7 +105,7 @@ function EventListService($http,ApiBasePath,servAddr){
   var qStr='dbname=publicDb&colname=event&user=&passwd=publicPwd&classname=none';
 
   // add log start log stop for an event when capture form database
-  var baseTime = 1476464405000+20*60*1000;  // time of recent recording for poster purpose //new Date().getTime();    //1477409400000; //8:30 on Oct 25th 2016
+  var baseTime = new Date().getTime();//1476464405000+20*60*1000;  // time of recent recording for poster purpose //new Date().getTime();    //1477409400000; //8:30 on Oct 25th 2016
   var baseTime2= baseTime +4*60*60*1000; // 13:00 start afternoon section
   //add duration interval
   events=[{
@@ -113,25 +113,25 @@ function EventListService($http,ApiBasePath,servAddr){
     speaker:'Edward Lee, Director',
     startTime:baseTime,
     endTime:baseTime+ 2*60*1000,//5*60*1000,
-    status:"Done",
-    isdone: true,
-    isactive:false,
-    realStart:baseTime+ 3*60*1000,
-    realEnd:baseTime+ 4*60*1000
+    status:"Upcoming",
+    isdone: false,
+    isactive:false
+    //realStart:baseTime+ 3*60*1000,
+    //realEnd:baseTime + 4*60*1000
   },{
     name:'MARCO Perspective Stakeholder for TerraSwarm Annual Review',
     speaker:'Gil Vandentop (SRC)',
-    startTime:baseTime+7*60*1000,//5*60*1000,
-    endTime:baseTime+15*60*1000,//10*60*1000,
-    status:"in progess...",
+    startTime:baseTime+2*60*1000,//5*60*1000,
+    endTime:baseTime+4*60*1000,//10*60*1000,
+    status:"Upcoming",
     isdone:false,
-    isactive:true
+    isactive:false
   },{
     name: 'TerraSwarm: State of the Center',
     speaker:'Edward Lee, Director',
-    startTime:baseTime+75*60*1000,//'8:45',
-    endTime:baseTime+105*60*1000,
-    status:"Upcomming",
+    startTime:baseTime+ 4*60*1000,//75*60*1000,//'8:45',
+    endTime:baseTime+  6*60*1000,//105*60*1000,
+    status:"Upcoming",
     isdone:false,
     isactive:false
   },
@@ -140,7 +140,7 @@ function EventListService($http,ApiBasePath,servAddr){
     speaker:'John Wawrzynek (Berkeley)',
     startTime:baseTime+75*60*1000,//'8:45',
     endTime:baseTime+105*60*1000,
-    status:"Upcomming",
+    status:"Upcoming",
     isdone:false,
     isactive:false
   },
@@ -149,7 +149,7 @@ function EventListService($http,ApiBasePath,servAddr){
     speaker:'Prabal Dutta (Michigan) and Richard Murray (Caltech)',
     startTime:baseTime+130*60*1000,//'8:45',
     endTime:baseTime+165*60*1000,
-    status:"Upcomming",
+    status:"Upcoming",
     isdone:false,
     isactive:false
   },
@@ -158,7 +158,7 @@ function EventListService($http,ApiBasePath,servAddr){
     speaker:'Students',
     startTime:baseTime+165*60*1000,//'8:45',
     endTime:baseTime+195*60*1000,
-    status:"Upcomming",
+    status:"Upcoming",
     isdone:false,
     isactive:false
   },
@@ -167,7 +167,7 @@ function EventListService($http,ApiBasePath,servAddr){
     speaker:'Alberto Sangiovanni-Vincentelli (Berkeley) and Sanjit Seshia (Berkeley)',
     startTime:baseTime2,//'8:45',
     endTime:baseTime2+45*60*1000,
-    status:"Upcomming",
+    status:"Upcoming",
     isdone:false,
     isactive:false
   },
@@ -176,7 +176,7 @@ function EventListService($http,ApiBasePath,servAddr){
     speaker:'Students',
     startTime:baseTime2+45*60*1000,//'8:45',
     endTime:baseTime2+75*60*1000,
-    status:"Upcomming",
+    status:"Upcoming",
     isdone:false,
     isactive:false
   },
@@ -185,7 +185,7 @@ function EventListService($http,ApiBasePath,servAddr){
     speaker:'Jeff Bilmes (Washington) and Anthony Rowe (CMU)',
     startTime:baseTime2+75*60*1000,//'8:45',
     endTime:baseTime2+120*60*1000,
-    status:"Upcomming",
+    status:"Upcoming",
     isdone:false,
     isactive:false
   },
@@ -194,7 +194,7 @@ function EventListService($http,ApiBasePath,servAddr){
     speaker:'Students',
     startTime:baseTime2+120*60*1000,//'8:45',
     endTime:baseTime2+150*60*1000,
-    status:"Upcomming",
+    status:"Upcoming",
     isdone:false,
     isactive:false
   },

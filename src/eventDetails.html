@@ -12,16 +12,16 @@
 			</thead>
 			</tr>
 			<tr id="sessionStart" class ="success">
-				<td> {{ctrl.activeEvent.startTime | date:'HH:mm:ss':'GMT-7'}}</td>
+				<td> {{ctrl.activeEvent.realStart | date:'HH:mm:ss':'GMT-7'}}</td>
 				<td>Event Started</td>
 			</tr>
 			<tr ng-repeat="tag in ctrl.tags" ng-if="tag.hasOwnProperty('tag')&&(tag.tag.length)">
 				<td>{{tag.recordDate| date:'HH:mm:ss':'GMT-7'}}</td> 
-				 <td ng-class="{'text-primary': tag.androidID=='b8a9953125a933af','text-danger':tag.androidID=='1'}"> {{tag.tag}}</td>
+				 <td ng-class="{'text-primary': tag.androidID=='b8a9953125a933af','text-danger':tag.androidID=='2c3f3c41c3f247c6'}"> {{tag.tag}}</td>
 			</tr>
 
 			<tr id="sessionEnd" class="danger">
-				<td>{{ctrl.activeEvent.endTime| date:'HH:mm:ss':'GMT-7'}}</td>
+				<td>{{ctrl.activeEvent.realEnd| date:'HH:mm:ss':'GMT-7'}}</td>
 				<td>Event ended</td>
 			</tr>
 		</table>

@@ -1,7 +1,7 @@
 <div class="introText">This year schedule (@Krutch Theatre):</div>
 <div id="schedule" ng-controller='ScheduleController as sct'>
 	<div class="container">
-		<table class= "table table-striped table-bordered"> 
+		<table class= "table table-bordered"> 
 			<thead>
 				<tr>
 					<th>Scheduled Time</th>
@@ -20,7 +20,7 @@
 				<td id="note">
 					<span id ="realTime"  ng-if="e.hasOwnProperty('realStart')"> {{e.realStart|date:"HH:mm":'GMT-7'}} -  {{e.realEnd|date:"HH:mm":'GMT-7'}}</span>
 				</td>
-				<td id="detail" ><button class="btn btn-info" ng-if="e.isdone" ng-click="sct.gotoDetail(e)">details </div></td>
+				<td id="detail" ><button class="btn btn-info" ng-if="e.isactive" ng-click="sct.gotoDetail(e)">details </div></td>
 				
 				
 		
