@@ -108,6 +108,7 @@ function EventListService($http,ApiBasePath,servAddr){
     // Construct the query string
   //var qStr = JSON.stringify({'dbname':DB, 'colname': EVENT, 'user': USER, 'passwd': PWD, 'classname': q.cname});
   var qStr='dbname=publicDb&colname=event&user=&passwd=publicPwd&classname=none';
+  var qStr1='dbname=publicDb&colname=data&user=&passwd=publicPwd&classname=none';
 
   // add log start log stop for an event when capture form database
   var baseTime = new Date(1476735695371).getTime();//1476464405000+20*60*1000;  // time of recent recording for poster purpose //new Date().getTime();    //1477409400000; //8:30 on Oct 25th 2016
@@ -269,11 +270,35 @@ function EventListService($http,ApiBasePath,servAddr){
 
   service.playSound = function(filename){
     console.log(filename);
+    
+    $http({
+        method: "GET",
+        url:(servAddr+'/gridfs?'+qStr1+'&filename='+filename),
+        responseType: "arraybuffer"
+    }).then(function(resp){
+        //console.log(resp);
+        var data = resp.data;
+        console.log('data.byteLength = '+data.byteLength);
+        soundPlay(data);
+    }).catch(function(err){
+        console.log('cannot download data');
+        alert('cannot download data');
+    });
   }
-  
-
 }
 
+var audioCtx = new AudioContext(); // should only have 1 per doc
+var soundPlay = function(data){
+	audioCtx.decodeAudioData(data, function(buf){
+		// play the sound
+		var source = audioCtx.createBufferSource();
+		source.buffer = buf;
+		source.connect(audioCtx.destination);
+		source.start(0);
+	}, function(error){
+			console.log('audio decoding error');
+	});
+};
 
 RoutesConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
 function RoutesConfig($stateProvider, $urlRouterProvider) {
