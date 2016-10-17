@@ -9,20 +9,24 @@
 			<thead>
 				<th>Time</th>
 				<th>Tag</th>
+				<th>play Sound </th>
 			</thead>
 			</tr>
 			<tr id="sessionStart" class ="success">
 				<td> {{ctrl.activeEvent.realStart | date:'HH:mm:ss':'GMT-7'}}</td>
 				<td>Event Started</td>
+				<td></td>
 			</tr>
 			<tr ng-repeat="tag in ctrl.tags" ng-if="tag.hasOwnProperty('tag')&&(tag.tag.length)">
 				<td>{{tag.recordDate| date:'HH:mm:ss':'GMT-7'}}</td> 
 				 <td ng-class="{'text-primary': tag.androidID=='b8a9953125a933af','text-danger':tag.androidID=='2c3f3c41c3f247c6'}"> {{tag.tag}}</td>
+				 <td><button ng-click="ctrl.playSound(tag.filename)">sound</button></td>
 			</tr>
 
 			<tr id="sessionEnd" class="danger">
 				<td>{{ctrl.activeEvent.realEnd| date:'HH:mm:ss':'GMT-7'}}</td>
 				<td>Event ended</td>
+				<td></td>
 			</tr>
 		</table>
 	</div>

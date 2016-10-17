@@ -18,6 +18,7 @@ angular.module('RoutingApp')
 EventDetailController.$inject=['EventListService', 'UtilitiesService'];
 function EventDetailController(EventListService, UtilitiesService){
   var ctrl=this;
+  ctrl.playSound = EventListService.playSound;
   ctrl.activeEvent = EventListService.getActiveEvent(); //$state.params.activeEvent;
   ctrl.tags =[{recordDate:'2016-10-14T17:00:05.000Z',tag:'how are you?'}];
   console.log(ctrl);
@@ -51,7 +52,7 @@ function ScheduleController(EventListService,$state,UtilitiesService){
   console.log(ctrl);
   var schedule = UtilitiesService.getScheduleformat(ctrl.events);
   
-  var t1=   new Date(1476731808728-15*60*1000).toISOString();//"2016-10-13T20:04:06.000Z";
+  var t1=   new Date(1476735695371-60*1000).toISOString();//"2016-10-13T20:04:06.000Z";
   var t2 =  new Date().toISOString();   //"2016-10-13T21:06:06.595Z";
 
   var promise=[];
@@ -77,7 +78,10 @@ function ScheduleController(EventListService,$state,UtilitiesService){
       console.log(matchedInd);
     };
     if (matchedInd>0){
-       EventListService.setEventisDone(matchedInd-1);
+      for (var j = 0; j < matchedInd ; j++) {
+        EventListService.setEventisDone(j);
+      };
+       
     }
    console.log (response);
   })
@@ -106,7 +110,7 @@ function EventListService($http,ApiBasePath,servAddr){
   var qStr='dbname=publicDb&colname=event&user=&passwd=publicPwd&classname=none';
 
   // add log start log stop for an event when capture form database
-  var baseTime = new Date(1476731808728-13*60*1000).getTime();//1476464405000+20*60*1000;  // time of recent recording for poster purpose //new Date().getTime();    //1477409400000; //8:30 on Oct 25th 2016
+  var baseTime = new Date(1476735695371).getTime();//1476464405000+20*60*1000;  // time of recent recording for poster purpose //new Date().getTime();    //1477409400000; //8:30 on Oct 25th 2016
   var baseTime2= baseTime +4*60*60*1000; // 13:00 start afternoon section
   //add duration interval
   events=[{
@@ -248,7 +252,7 @@ function EventListService($http,ApiBasePath,servAddr){
   q.t2=t2;
   q.androidID="b8a9953125a933af";
   q.isStart = '{"$exists":false}';
-  q.mask ={'_id':false,'androidID':true,'tag':true,'recordDate':true,'isStart':true};
+  q.mask ={'_id':false,'androidID':true,'tag':true,'recordDate':true,'isStart':true,'filename':true};
   var strAtt2 =[];
   strAtt2 = strAtt2.concat('{"recordDate":{"$gte":{"$date":"'+ q.t1+'"}, "$lte":{"$date":"'+q.t2+'"}}}');
   strAtt2 = strAtt2.concat('{"isStart":'+q.isStart+'}');
@@ -261,6 +265,10 @@ function EventListService($http,ApiBasePath,servAddr){
     });
 
     return response;
+  }
+
+  service.playSound = function(filename){
+    console.log(filename);
   }
   
 
