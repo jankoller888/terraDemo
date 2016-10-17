@@ -51,7 +51,7 @@ function ScheduleController(EventListService,$state,UtilitiesService){
   console.log(ctrl);
   var schedule = UtilitiesService.getScheduleformat(ctrl.events);
   
-  var t1=   new Date().toISOString();//"2016-10-13T20:04:06.000Z";
+  var t1=   new Date(1476731808728-15*60*1000).toISOString();//"2016-10-13T20:04:06.000Z";
   var t2 =  new Date().toISOString();   //"2016-10-13T21:06:06.595Z";
 
   var promise=[];
@@ -74,6 +74,7 @@ function ScheduleController(EventListService,$state,UtilitiesService){
       matchedInd =UtilitiesService.findMatchEvent(testdata[i],schedule)
       UtilitiesService.updateStartStopTime(ctrl.events[matchedInd],testdata[i]);
       EventListService.setEventinProgess(matchedInd);
+      console.log(matchedInd);
     };
     if (matchedInd>0){
        EventListService.setEventisDone(matchedInd-1);
@@ -105,7 +106,7 @@ function EventListService($http,ApiBasePath,servAddr){
   var qStr='dbname=publicDb&colname=event&user=&passwd=publicPwd&classname=none';
 
   // add log start log stop for an event when capture form database
-  var baseTime = new Date().getTime();//1476464405000+20*60*1000;  // time of recent recording for poster purpose //new Date().getTime();    //1477409400000; //8:30 on Oct 25th 2016
+  var baseTime = new Date(1476731808728-13*60*1000).getTime();//1476464405000+20*60*1000;  // time of recent recording for poster purpose //new Date().getTime();    //1477409400000; //8:30 on Oct 25th 2016
   var baseTime2= baseTime +4*60*60*1000; // 13:00 start afternoon section
   //add duration interval
   events=[{

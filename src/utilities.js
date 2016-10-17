@@ -24,7 +24,7 @@ function UtilitiesService(){
 
 		var minDist = Math.abs(timeTuple.Tstart- schedule[0].startT)/1000 + Math.abs(timeTuple.Tend- schedule[0].endT)/1000;
 		var temp =0;
-		for (var i = 1; i < OriginalSchedule.length; i++) {
+		for (var i = 1; i < schedule.length; i++) {
 			 temp=Math.abs(timeTuple.Tstart- schedule[i].startT)/1000 + Math.abs(timeTuple.Tend- schedule[i].endT)/1000;
 			 if (temp < minDist){
 			 	minDist = temp;
