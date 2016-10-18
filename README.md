@@ -1,3 +1,3 @@
 # Instructions
-browser-sync start --server --files --directory "*\*/*"
+browser-sync start --server --files --directory "\**/*"
 
