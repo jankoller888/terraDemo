@@ -53,12 +53,13 @@ function ScheduleController(EventListService,$state,UtilitiesService){
   var schedule = UtilitiesService.getScheduleformat(ctrl.events);
   
   var t1=   new Date(1476735695371-60*1000).toISOString();//"2016-10-13T20:04:06.000Z";
-  var t2 =  new Date().toISOString();   //"2016-10-13T21:06:06.595Z";
+  var t2 =  new Date(Math.min(Date.now(),1476735695371+1000*60*60*24)).toISOString();   //"2016-10-13T21:06:06.595Z";
 
   var promise=[];
   setInterval(function(){
 
-  promise= EventListService.getStartStopEvents(t1,new Date().toISOString());
+  //promise= EventListService.getStartStopEvents(t1,new Date().toISOString());
+  promise= EventListService.getStartStopEvents(t1,t2);
 
   promise.then(function (response) {
     console.log('promise done');
