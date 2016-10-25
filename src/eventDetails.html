@@ -14,7 +14,7 @@
 			</thead>
 			</tr>
 			<tr id="sessionStart" class ="success">
-				<td> {{ctrl.activeEvent.realStart | date:'HH:mm:ss':'GMT-7'}}</td>
+				<td> {{ctrl.activeEvent.realStart-30*1000 | date:'HH:mm:ss':'GMT-7'}}</td>
 				<td>Event Started</td>
 				<td></td>
 			</tr>
@@ -25,7 +25,7 @@
 			</tr>
 
 			<tr id="sessionEnd" class="danger">
-				<td>{{ctrl.activeEvent.realEnd| date:'HH:mm:ss':'GMT-7'}}</td>
+				<td>{{ctrl.activeEvent.realEnd -30*1000| date:'HH:mm:ss':'GMT-7'}}</td>
 				<td>Event ended</td>
 				<td></td>
 			</tr>

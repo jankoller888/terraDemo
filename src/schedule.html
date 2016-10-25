@@ -18,7 +18,7 @@
 				<td id="speaker"> {{e.speaker}}</td>
 				<td id="status"> {{e.status}}</td>
 				<td id="note">
-					<span id ="realTime"  ng-if="e.hasOwnProperty('realStart')"> {{e.realStart|date:"HH:mm":'GMT-7'}} -  {{e.realEnd|date:"HH:mm":'GMT-7'}}</span>
+					<span id ="realTime"  ng-if="e.hasOwnProperty('realStart')"> {{e.realStart-30*1000|date:"HH:mm":'GMT-7'}} -  {{e.realEnd-30*1000|date:"HH:mm":'GMT-7'}}</span>
 				</td>
 				<td id="detail" ><button class="btn btn-info" ng-if="e.isactive &&e.hasOwnProperty('realStart')" ng-click="sct.gotoDetail(e)">details </div></td>
 				

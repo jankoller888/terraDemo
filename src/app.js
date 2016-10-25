@@ -22,7 +22,7 @@ function EventDetailController(EventListService, UtilitiesService){
   ctrl.activeEvent = EventListService.getActiveEvent(); //$state.params.activeEvent;
   ctrl.tags =[{recordDate:'2016-10-14T17:00:05.000Z',tag:'how are you?'}];
   console.log(ctrl);
-  var t1=  new Date(ctrl.activeEvent.realStart).toISOString(); //new Date('Fri Oct 14 2016 12:00:05 GMT-0500').toISOString();  //new Date(ctrl.activeEvent.startTime).toISOString();
+  var t1=  new Date(ctrl.activeEvent.realStart-30*1000).toISOString(); // querry 30s earlier//new Date('Fri Oct 14 2016 12:00:05 GMT-0500').toISOString();  //new Date(ctrl.activeEvent.startTime).toISOString();
   var t2 = new Date(ctrl.activeEvent.realEnd).toISOString();//new Date('Fri Oct 14 2016 13:00:05 GMT-0500').toISOString();  //new Date(ctrl.activeEvent.endTime).toISOString();
 
   var promise = EventListService.getQAEvents(t1,t2);

@@ -57,6 +57,10 @@ function UtilitiesService(){
 		// expect is array of of events with isStart
 		// assume first element is all isStart after sorting 
 		eventList.sort(customSort);
+		if ((eventList.length>0)&&!eventList[0].isStart){
+			eventList.shift();
+		}
+
 		var dataArr =[];
 		for (var i = 0; i < Math.floor(eventList.length/2); i++) {
 			dataArr.push({'Tstart':new Date(eventList[i*2].recordDate).getTime(),'Tend': new Date(eventList[i*2+1].recordDate).getTime()}) ;  
