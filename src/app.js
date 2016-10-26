@@ -52,7 +52,7 @@ function ScheduleController(EventListService,$state,UtilitiesService){
   console.log(ctrl);
   var schedule = UtilitiesService.getScheduleformat(ctrl.events);
   
-  var t1=   new Date(Math.min(Date.now(),1477495800000-30*60*1000)).toISOString();//"2016-10-13T20:04:06.000Z";1476735695371-60*1000
+  var t1=   new Date(Math.min(Date.now(),1477495800000-15*60*1000)).toISOString();//"2016-10-13T20:04:06.000Z";1476735695371-60*1000
   var t2 =  new Date(Math.min(Date.now(),new Date(t1).getTime()+1000*60*60*24)).toISOString();   //"2016-10-13T21:06:06.595Z";
 
 
