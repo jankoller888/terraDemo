@@ -52,7 +52,7 @@ function ScheduleController(EventListService,$state,UtilitiesService){
   console.log(ctrl);
   var schedule = UtilitiesService.getScheduleformat(ctrl.events);
   
-  var t1=   new Date().toISOString();//"2016-10-13T20:04:06.000Z";1476735695371-60*1000
+  var t1=   new Date(Math.min(Date.now(),1477495800000-30*60*1000)).toISOString();//"2016-10-13T20:04:06.000Z";1476735695371-60*1000
   var t2 =  new Date(Math.min(Date.now(),new Date(t1).getTime()+1000*60*60*24)).toISOString();   //"2016-10-13T21:06:06.595Z";
 
 
@@ -113,14 +113,14 @@ function EventListService($http,ApiBasePath,servAddr){
   var qStr1='dbname=publicDb&colname=data&user=&passwd=publicPwd&classname=none';
 
   // add log start log stop for an event when capture form database //1476735695371
-  var baseTime = new Date().getTime();//1476464405000+20*60*1000;  // time of recent recording for poster purpose //new Date().getTime();    //1477409400000; //8:30 on Oct 25th 2016
-  var baseTime2= baseTime +4*60*60*1000; // 13:00 start afternoon section
+  var baseTime = 1477495800000-30*60*1000;//1477495800000 26th Oct 8:30  // time of recent recording for poster purpose //new Date().getTime();    //1477409400000; //8:30 on Oct 25th 2016
+  var baseTime2= baseTime +5*60*60*1000; // 13:00 start afternoon section
   //add duration interval
   events=[{
     name:'Welcome',
     speaker:'Edward Lee, Director',
-    startTime:baseTime,
-    endTime:baseTime+ 2*60*1000,//5*60*1000,
+    startTime:baseTime + 30*60*1000,
+    endTime:baseTime+ 35*60*1000,//5*60*1000,
     status:"Upcoming",
     isdone: false,
     isactive:false
@@ -129,16 +129,16 @@ function EventListService($http,ApiBasePath,servAddr){
   },{
     name:'MARCO Perspective Stakeholder for TerraSwarm Annual Review',
     speaker:'Gil Vandentop (SRC)',
-    startTime:baseTime+2*60*1000,//5*60*1000,
-    endTime:baseTime+4*60*1000,//10*60*1000,
+    startTime:baseTime+35*60*1000,//5*60*1000,
+    endTime:baseTime+45*60*1000,//10*60*1000,
     status:"Upcoming",
     isdone:false,
     isactive:false
   },{
     name: 'TerraSwarm: State of the Center',
     speaker:'Edward Lee, Director',
-    startTime:baseTime+ 4*60*1000,//75*60*1000,//'8:45',
-    endTime:baseTime+  6*60*1000,//105*60*1000,
+    startTime:baseTime+ 45*60*1000,//75*60*1000,//'8:45',
+    endTime:baseTime+  75*60*1000,//105*60*1000,
     status:"Upcoming",
     isdone:false,
     isactive:false
@@ -146,7 +146,7 @@ function EventListService($http,ApiBasePath,servAddr){
   {
     name: 'Introduction to Demos',
     speaker:'John Wawrzynek (Berkeley)',
-    startTime:baseTime+75*60*1000,//'8:45',
+    startTime:baseTime+75*60*1000,
     endTime:baseTime+105*60*1000,
     status:"Upcoming",
     isdone:false,
@@ -155,7 +155,7 @@ function EventListService($http,ApiBasePath,servAddr){
   {
     name: 'Theme 1/ Proactive Worlds',
     speaker:'Prabal Dutta (Michigan) and Richard Murray (Caltech)',
-    startTime:baseTime+130*60*1000,//'8:45',
+    startTime:baseTime+130*60*1000,
     endTime:baseTime+165*60*1000,
     status:"Upcoming",
     isdone:false,
@@ -164,7 +164,7 @@ function EventListService($http,ApiBasePath,servAddr){
   {
     name: 'Theme 1/ Proactive Worlds Tweets',
     speaker:'Students',
-    startTime:baseTime+165*60*1000,//'8:45',
+    startTime:baseTime+165*60*1000,
     endTime:baseTime+195*60*1000,
     status:"Upcoming",
     isdone:false,
@@ -191,8 +191,8 @@ function EventListService($http,ApiBasePath,servAddr){
   {
     name: ' Theme 3/ Services and Cloud Interactions',
     speaker:'Jeff Bilmes (Washington) and Anthony Rowe (CMU)',
-    startTime:baseTime2+75*60*1000,//'8:45',
-    endTime:baseTime2+120*60*1000,
+    startTime:baseTime2+95*60*1000,
+    endTime:baseTime2+140*60*1000,
     status:"Upcoming",
     isdone:false,
     isactive:false
@@ -200,8 +200,8 @@ function EventListService($http,ApiBasePath,servAddr){
   {
     name: 'Theme 3 Tweets',
     speaker:'Students',
-    startTime:baseTime2+120*60*1000,//'8:45',
-    endTime:baseTime2+150*60*1000,
+    startTime:baseTime2+140*60*1000,
+    endTime:baseTime2+170*60*1000,
     status:"Upcoming",
     isdone:false,
     isactive:false
