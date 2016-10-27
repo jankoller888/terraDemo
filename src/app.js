@@ -85,6 +85,9 @@ function ScheduleController(EventListService,$state,UtilitiesService){
       };
        
     }
+	if (matchedInd == ctrl.events.length-1){
+        EventListService.setEventisDone(matchedInd);
+	}
    console.log (response);
   })
   .catch(function (error) {
@@ -189,14 +192,15 @@ function EventListService($http,ApiBasePath,servAddr){
     isactive:false
   },
   {
-    name: ' Theme 3/ Services and Cloud Interactions',
+    name: ' Theme 3/ Services and Cloud Interactions/ Tweets',
     speaker:'Jeff Bilmes (Washington) and Anthony Rowe (CMU)',
     startTime:baseTime2+95*60*1000,
-    endTime:baseTime2+140*60*1000,
+    endTime:baseTime2+170*60*1000,
     status:"Upcoming",
     isdone:false,
     isactive:false
   },
+/*
   {
     name: 'Theme 3 Tweets',
     speaker:'Students',
@@ -205,7 +209,7 @@ function EventListService($http,ApiBasePath,servAddr){
     status:"Upcoming",
     isdone:false,
     isactive:false
-  },
+  },*/
   ];
 // for testing
   testdata2=events;
