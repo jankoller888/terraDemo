@@ -192,7 +192,7 @@ function EventListService($http,ApiBasePath,servAddr){
     isactive:false
   },
   {
-    name: ' Theme 3/ Services and Cloud Interactions/ Tweets',
+    name: ' Theme 3/ Services and Cloud Interactions & Tweets',
     speaker:'Jeff Bilmes (Washington) and Anthony Rowe (CMU)',
     startTime:baseTime2+95*60*1000,
     endTime:baseTime2+170*60*1000,
