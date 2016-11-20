@@ -57,42 +57,44 @@ function ScheduleController(EventListService,$state,UtilitiesService){
 
 
   var promise=[];
-  setInterval(function(){
+  var repCallback = function(){
+	  promise= EventListService.getStartStopEvents(t1,new Date().toISOString());
+	  //promise= EventListService.getStartStopEvents(t1,t2);
 
-  promise= EventListService.getStartStopEvents(t1,new Date().toISOString());
-  //promise= EventListService.getStartStopEvents(t1,t2);
-
-  promise.then(function (response) {
-    console.log('promise done');
-    testdata= response.data; // for test only
-    
-    testdata= UtilitiesService.convertToTimeTuple(testdata);
-    var matchedInd= -1; // valid index should start at 0, -1 means no valid index found
-    //update the timestamp
-    if (testdata.length){
-      t1 = new Date(testdata[testdata.length-1].Tend+100).toISOString(); //+100 to exculde the last stop event
-    }
-    
-    for (var i = 0; i < testdata.length; i++) {
-      matchedInd =UtilitiesService.findMatchEvent(testdata[i],schedule)
-      UtilitiesService.updateStartStopTime(ctrl.events[matchedInd],testdata[i]);
-      EventListService.setEventinProgess(matchedInd);
-      console.log(matchedInd);
-    };
-    if (matchedInd>0){
-      for (var j = 0; j < matchedInd ; j++) {
-        EventListService.setEventisDone(j);
-      };
-       
-    }
-	if (matchedInd == ctrl.events.length-1){
-        EventListService.setEventisDone(matchedInd);
-	}
-   console.log (response);
-  })
-  .catch(function (error) {
-    console.log("Something went terribly wrong.");
-  });},15*1000);
+	  promise.then(function (response) {
+		console.log('promise done');
+		testdata= response.data; // for test only
+		
+		testdata= UtilitiesService.convertToTimeTuple(testdata);
+		var matchedInd= -1; // valid index should start at 0, -1 means no valid index found
+		//update the timestamp
+		if (testdata.length){
+		  t1 = new Date(testdata[testdata.length-1].Tend+100).toISOString(); //+100 to exculde the last stop event
+		}
+		
+		for (var i = 0; i < testdata.length; i++) {
+		  matchedInd =UtilitiesService.findMatchEvent(testdata[i],schedule)
+		  UtilitiesService.updateStartStopTime(ctrl.events[matchedInd],testdata[i]);
+		  EventListService.setEventinProgess(matchedInd);
+		  console.log(matchedInd);
+		};
+		if (matchedInd>0){
+		  for (var j = 0; j < matchedInd ; j++) {
+			EventListService.setEventisDone(j);
+		  };
+		   
+		}
+		if (matchedInd == ctrl.events.length-1){
+			EventListService.setEventisDone(matchedInd);
+		}
+	   console.log (response);
+	  })
+	  .catch(function (error) {
+		console.log("Something went terribly wrong.");
+	  });
+  };
+  repCallback();
+  setInterval(repCallback,15*1000);
   
   //for click event
   ctrl.gotoDetail= function (e){
